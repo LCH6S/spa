@@ -7,7 +7,7 @@
 | 要做什么 | 从哪里开始 |
 |---|---|
 | 继续评审或开发 | [接手说明](docs/meta-pos-activation-handoff.md) · [Agent 协作约定](AGENTS.md) |
-| 查当前功能、状态和验收 | [设备分配与激活 PRD V0.3](docs/meta-pos-device-activation-prd.md) |
+| 查当前功能、状态和验收 | [设备分配与激活 PRD V0.4](docs/meta-pos-device-activation-prd.md) |
 | 查关键决定、修改原因和历次方案 | [评审过程与决策记录](docs/meta-pos-activation-process.md) |
 | 查业务场景和角色交接 | [业务 BRD V0.2](docs/meta-pos-device-activation-brd-business.md) · [初版 BRD V0.1](docs/meta-pos-device-activation-brd.md) |
 | 核对运营平台交互 | [在线 Demo](https://lch6s.github.io/spa/pos-device-allocation/) · [Demo 源码](pos-device-allocation/) |
