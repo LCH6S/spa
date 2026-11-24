@@ -1,6 +1,6 @@
 # Meta POS 激活改造评审过程与决策记录
 
-截至 2026-11-25。按讨论阶段记录业务判断、原型反馈和方案变化。当前需求以 [PRD V0.1](meta-pos-device-activation-prd.md) 为准。原型部署、实际业务联调与评审结果分别记录。
+截至 2026-11-25。按讨论阶段记录业务判断、原型反馈和方案变化。当前需求以 [PRD V0.2](meta-pos-device-activation-prd.md) 为准。原型部署、实际业务联调与评审结果分别记录。
 
 ## 1. 业务问题与场景
 
@@ -69,6 +69,6 @@ CRM 数据范围限定为当前销售或 AE 已关联的品牌。任务按目标
 | 业务梳理 | 已有设备管理流程、初步激活方案及评审讨论形成两版 BRD。早期 Feishu 来源指针保留在初版 BRD，原始会议材料由具备权限的成员查阅。 [初版 BRD](meta-pos-device-activation-brd.md) |
 | 交互迭代 | 批次、任务、设备详情、参数弹窗与相关回归落实到 Demo。运营平台交互使用示例数据，生产 API、CRM、POS 和通联能力另行联调。 [Demo](https://lch6s.github.io/spa/pos-device-allocation/) |
 | 公网发布 | 2026-11-24 通过 GitHub API 首次发布运营平台，核对线上十个静态文件和主要菜单及模板下载。 [首次提交](https://github.com/LCH6S/spa/commit/8659561650a6301b7e521d87ecefc4a00f41e5e5) · [首次部署](https://github.com/LCH6S/spa/actions/runs/45425740120) |
-| 研发交接 | PRD V0.1 已形成草稿并按反馈更新角色主干路径和 POS 操作图。第 4 节是验收，第 5 节是待确认依赖。 [当前 PRD](meta-pos-device-activation-prd.md) · [接手说明](meta-pos-activation-handoff.md) |
+| 研发交接 | PRD V0.1 形成草稿并按反馈更新角色主干路径和 POS 操作图。V0.2 在对应功能内补齐页面字段、按钮条件、异常后的续办及可判定验收。第 4 节是验收，第 5 节是待确认依赖。 [当前 PRD](meta-pos-device-activation-prd.md) · [接手说明](meta-pos-activation-handoff.md) |
 
 本记录整理了本次对话、批注和可移交产物中的激活决策。原始对话导出、内部会议原件和带现场业务编号的后台截图由各自原渠道留存。
