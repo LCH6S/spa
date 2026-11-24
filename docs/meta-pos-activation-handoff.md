@@ -7,7 +7,7 @@
 | 产出或能力 | 状态与依据 |
 |---|---|
 | 业务需求 | BRD V0.1 保留初版详细流程，业务 BRD V0.2 保留六个场景及 AE、运营、实施、门店店员的交接。完成节点与对象关系以最新 PRD 为准。 [业务 BRD](meta-pos-device-activation-brd-business.md) |
-| 产品需求 | PRD V0.2 草稿，保留实施、AE、运营三条主干路径及两张 POS 操作图，细化运营平台页面字段和批次流转、POS 操作反馈、CRM 品牌权限及关键验收。 [当前 PRD](meta-pos-device-activation-prd.md) |
+| 产品需求 | PRD V0.3 草稿，补充四个激活字段的长度和字符校验及验收，保留实施、AE、运营三条主干路径及两张 POS 操作图，细化运营平台页面字段和批次流转、POS 操作反馈、CRM 品牌权限及关键验收。 [当前 PRD](meta-pos-device-activation-prd.md) |
 | 运营平台 | 独立 HTML Demo 已发布。菜单、批次和任务列表、模板下载完成线上验证。本地示例验证过时间边界、导入全失败自动取消、单条与批量作废、参数变更及错绑记录。 [在线 Demo](https://lch6s.github.io/spa/pos-device-allocation/) · [首次发布提交](https://github.com/LCH6S/spa/commit/8659561650a6301b7e521d87ecefc4a00f41e5e5) |
 | Meta POS 和收钱吧终端 | 客户端路径与目标规则已写入 PRD。生产激活、实际归属返回、错绑自动解绑和结果核对，需 POS 与收钱吧终端能力方联调。 [待确认](meta-pos-device-activation-prd.md#5-依赖与待确认) |
 | 通联和 CRM | 通联 USDK 读写、清除及主密钥流程待在目标机型验证。CRM 本期范围和品牌过滤口径已确定，品牌关系数据源和跨品牌错绑字段权限待评审。 [待确认](meta-pos-device-activation-prd.md#5-依赖与待确认) |
