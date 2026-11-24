@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>激活任务管理 · 运营管理平台</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="vendor/xlsx.full.min.js"></script>
+  <script defer src="vendor/qrcode.js"></script>
+  <script defer src="allocation.js"></script>
+  <script defer src="activation.js"></script>
+  <script defer src="activation-ui.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="product"><span class="brand-mark" aria-hidden="true">收</span>运营管理平台</div>
+    <div class="workspace-name">集团客户</div>
+    <div class="user"><span class="avatar" aria-hidden="true">实</span>实施人员</div>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav aria-label="IOT 管理">
+        <div class="nav-group">IOT 管理</div>
+        <a href="#allocation" id="allocation-nav">激活任务管理</a>
+        <a href="#devices" id="devices-nav">POS 激活管理</a>
+      </nav>
+    </aside>
+    <main id="main" tabindex="-1"></main>
+  </div>
+  <div id="notice" class="notice" role="status" aria-live="polite"></div>
+  <dialog id="single-dialog" class="form-dialog" aria-labelledby="single-title"></dialog>
+  <dialog id="bank-dialog" class="form-dialog" aria-labelledby="bank-title"></dialog>
+  <dialog id="task-dialog" class="form-dialog" aria-labelledby="task-dialog-title"></dialog>
+  <dialog id="legacy-dialog" class="legacy-dialog" aria-labelledby="legacy-title"></dialog>
+  <div id="delete-popover" class="delete-popover" popover="auto" role="alertdialog" aria-labelledby="row-delete-title" aria-describedby="row-delete-description">
+    <h2 id="row-delete-title">删除未激活设备</h2>
+    <p id="row-delete-description"></p>
+    <div class="actions align-right">
+      <button class="button" type="button" data-action="cancel-row-delete">取消</button>
+      <button class="button danger" type="button" data-action="confirm-row-delete">确认删除</button>
+    </div>
+  </div>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
+    <form method="dialog" class="confirm">
+      <h2 id="confirm-title"></h2>
+      <p id="confirm-description"></p>
+      <div class="actions align-right">
+        <button class="button" value="cancel" autofocus>取消</button>
+        <button class="button danger" id="confirm-action" value="confirm">确认</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
