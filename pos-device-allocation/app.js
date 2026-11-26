@@ -17,7 +17,7 @@ const batchStatuses = {
   "": "全部状态", checking: "检查中", checkFailed: "检查失败", ready: "待执行",
   executing: "执行中", succeeded: "执行完成", executionFailed: "执行失败", cancelled: "已取消"
 };
-const progressLabels = { total: "共导入", pending: "待激活", activated: "已激活", failed: "导入失败", voided: "已作废" };
+const progressLabels = { total: "共导入", pending: "待处理", activated: "已处理", failed: "导入失败", voided: "已作废" };
 let activeView = null;
 let noticeTimer;
 let confirmOperation;
