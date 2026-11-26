@@ -282,9 +282,14 @@ function renderCheck(batch) {
 
 function renderImportFailures(batch) {
   const items = batchFailures(batch);
+  const showUnionFields = items.some(({ input }) => input.merchant || input.terminal);
+  const headers = ["设备号", "收钱吧门店号", "收钱吧激活码",
+    ...(showUnionFields ? ["通联商户号", "通联终端号"] : []), "失败阶段", "失败原因"];
   return `${items.length ? `<div class="panel-title align-right"><button class="button" type="button" data-action="download-import-failures" data-id="${esc(batch.id)}">下载失败清单</button></div>` : ""}
-    ${bodyTable(["设备号", "收钱吧门店号", "失败阶段", "失败原因"], items.map(item =>
-      row(plain(item.input.serial), plain(item.input.storeCode), esc(item.stage), esc(item.reason))), "本批次没有导入失败的记录")}`;
+    ${bodyTable(headers, items.map(({ input, stage, reason }) => row(
+      plain(input.serial), plain(input.storeCode), plain(input.code),
+      ...(showUnionFields ? [plain(input.merchant), plain(input.terminal)] : []), esc(stage), esc(reason)
+    )), "本批次没有导入失败的记录")}`;
 }
 
 function renderResult(state, batch) {
