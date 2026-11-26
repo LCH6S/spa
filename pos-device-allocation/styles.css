@@ -135,13 +135,6 @@ td .actions { gap: 12px; }
 .tabs { display: flex; flex-wrap: wrap; gap: 16px; padding: 0 18px; border-bottom: 1px solid var(--line); }
 .tabs button { padding: 12px 3px 10px; border: 0; border-bottom: 3px solid transparent; background: transparent; color: #536078; white-space: nowrap; }
 .tabs button[aria-selected="true"] { color: var(--blue); border-color: var(--blue); font-weight: 650; }
-.groups { padding: 15px; display: grid; gap: 10px; }
-.brand-group { border: 1px solid var(--line); border-radius: 8px; background: #fff; }
-summary { padding: 10px 13px; color: #253652; font-weight: 600; }
-summary .inline-meta { margin-left: 9px; font-size: 12px; color: var(--muted); font-weight: 400; }
-.brand-group > summary { background: #f5f7fc; border-radius: 7px; }
-.store-group { margin: 8px 10px; border: 1px solid #e9edf4; border-radius: 6px; }
-.store-group > .table-wrap { border-top: 1px solid #e9edf4; }
 .footer-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 13px 17px; border-top: 1px solid var(--line); }
 .footer-actions.align-right { justify-content: flex-end; }
 .batch-void-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding: 12px 17px; }
@@ -215,7 +208,7 @@ dialog::backdrop { background: #1e2a4670; }
   .sidebar a { padding: 7px 9px; }
   main { padding: 14px; }
   h1 { font-size: 21px; }
-  .surface, .brand-group { border-radius: 8px; }
+  .surface { border-radius: 8px; }
   .section, .filter { padding: 13px; }
   .legacy-content { grid-template-columns: minmax(0, 1fr); }
 }

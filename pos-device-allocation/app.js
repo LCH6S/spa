@@ -234,30 +234,12 @@ function tabs(key, options, preferred, panel) {
     <div id="tab-content" role="tabpanel" aria-labelledby="tab-${active}">${panel(active)}</div>`;
 }
 
-function groupRows(rows) {
-  const brands = new Map();
-  for (const item of rows) {
-    const t = item.target;
-    if (!brands.has(t.brandId)) brands.set(t.brandId, { target: t, stores: new Map(), count: 0 });
-    const brand = brands.get(t.brandId);
-    const storeKey = `${t.storeId}-${t.storeCode}`;
-    if (!brand.stores.has(storeKey)) brand.stores.set(storeKey, { target: t, rows: [] });
-    brand.stores.get(storeKey).rows.push(item);
-    brand.count += 1;
-  }
-  return brands.values();
-}
-
 function previewPass(rows) {
-  if (!rows.length) return '<p class="empty">没有通过检查的设备</p>';
-  const groups = [...groupRows(rows)].map(({ target: brand, stores, count }) => `<details class="brand-group" open>
-    <summary>${esc(brand.brand)} <span class="inline-meta">品牌编号 ${esc(brand.brandId)} · ${count} 台</span></summary>
-    ${[...stores.values()].map(({ target: store, rows: items }) => `<details class="store-group">
-      <summary>${esc(store.store)} <span class="inline-meta">门店编号 ${esc(store.storeId)} · 收钱吧门店号 ${esc(store.storeCode)} · ${items.length} 台</span></summary>
-      ${bodyTable(["清单行号", "设备号", "收单机构", "通联商户号", "通联终端号"], items.map(item =>
-        row(item.line, esc(item.serial), esc(bankModes[item.mode]), plain(item.merchant), plain(item.terminal))), "暂无设备")}
-    </details>`).join("")}</details>`).join("");
-  return `<div class="groups">${groups}</div>`;
+  const headers = ["设备号", "品牌名称", "品牌编号", "门店名称", "门店编号", "收钱吧门店号", "收单机构", "通联商户号", "通联终端号"];
+  return bodyTable(headers, rows.map(({ serial, target, mode, merchant, terminal }) => row(
+    plain(serial), plain(target.brand), plain(target.brandId), plain(target.store), plain(target.storeId),
+    plain(target.storeCode), plain(bankModes[mode]), plain(merchant), plain(terminal)
+  )), "没有通过检查的设备");
 }
 
 function batchStatusPanel(batch, action = "") {
@@ -290,10 +272,10 @@ function renderCheck(batch) {
   } else if (cancelled) {
     nextAction = failed.length ? `<button class="button" type="button" data-action="download-import-failures" data-id="${esc(batch.id)}">下载失败清单</button>` : "";
   }
-  return `${header}<div class="stack">${batchMeta(batch)}
+  return `${header}<div class="stack list-stack">${batchMeta(batch)}
     <section class="surface" aria-label="清单检查结果">
-      ${tabs(`check-${batch.id}`, [["pass", "设备分配预览", passed.length], ["fail", "检查未通过", failed.length]], passed.length ? "pass" : "fail", active =>
-        active === "pass" ? previewPass(passed) : bodyTable(["清单行号", "设备号", "收钱吧门店号", "未通过原因"], failed.map(item => row(item.line, plain(item.serial), plain(item.storeCode), esc(item.errors.join("；")))), "所有记录均通过检查"))}
+      ${tabs(`check-${batch.id}`, [["pass", "设备分配预览", passed.length], ["fail", "导入失败", failed.length]], passed.length ? "pass" : "fail", active =>
+        active === "pass" ? previewPass(passed) : bodyTable(["设备号", "收钱吧门店号", "失败原因"], failed.map(item => row(plain(item.serial), plain(item.storeCode), esc(item.errors.join("；")))), "本批次没有导入失败的记录"))}
       ${nextAction ? `<div class="footer-actions align-right">${nextAction}</div>` : ""}
     </section></div>`;
 }
@@ -301,8 +283,8 @@ function renderCheck(batch) {
 function renderImportFailures(batch) {
   const items = batchFailures(batch);
   return `${items.length ? `<div class="panel-title align-right"><button class="button" type="button" data-action="download-import-failures" data-id="${esc(batch.id)}">下载失败清单</button></div>` : ""}
-    ${bodyTable(["清单行号", "设备号", "收钱吧门店号", "失败阶段", "失败原因"], items.map(item =>
-      row(item.row, plain(item.input.serial), plain(item.input.storeCode), esc(item.stage), esc(item.reason))), "本批次没有导入失败的记录")}`;
+    ${bodyTable(["设备号", "收钱吧门店号", "失败阶段", "失败原因"], items.map(item =>
+      row(plain(item.input.serial), plain(item.input.storeCode), esc(item.stage), esc(item.reason))), "本批次没有导入失败的记录")}`;
 }
 
 function renderResult(state, batch) {
@@ -316,7 +298,7 @@ function renderResult(state, batch) {
   const taskCount = progress.pending + progress.activated + progress.voided;
   const options = [["tasks", "设备激活任务", taskCount], ["failed", "导入失败", progress.failed]];
   return `${header}
-    <div class="stack">${batchMeta(batch, false)}<section class="surface progress-grid" aria-label="批次进度">
+    <div class="stack list-stack">${batchMeta(batch, false)}<section class="surface progress-grid" aria-label="批次进度">
       ${Object.entries(progressLabels).map(([key, label]) => `<div class="progress-item"><span>${label}</span><strong>${progress[key]}</strong></div>`).join("")}
     </section><section class="surface" aria-label="批次设备明细">
       ${tabs(`result-${batch.id}`, options, taskCount ? "tasks" : "failed", active => active === "tasks" ? taskBatchContent(state, batch) : renderImportFailures(batch))}
