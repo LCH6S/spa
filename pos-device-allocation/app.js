@@ -275,21 +275,26 @@ function renderCheck(batch) {
   return `${header}<div class="stack list-stack">${batchMeta(batch)}
     <section class="surface" aria-label="清单检查结果">
       ${tabs(`check-${batch.id}`, [["pass", "设备分配预览", passed.length], ["fail", "导入失败", failed.length]], passed.length ? "pass" : "fail", active =>
-        active === "pass" ? previewPass(passed) : bodyTable(["设备号", "收钱吧门店号", "失败原因"], failed.map(item => row(plain(item.serial), plain(item.storeCode), esc(item.errors.join("；")))), "本批次没有导入失败的记录"))}
+        active === "pass" ? previewPass(passed) : importFailureTable(failed.map(input => ({ input, reason: input.errors.join("；") }))))}
       ${nextAction ? `<div class="footer-actions align-right">${nextAction}</div>` : ""}
     </section></div>`;
 }
 
-function renderImportFailures(batch) {
-  const items = batchFailures(batch);
+function importFailureTable(items, { includeStage = false } = {}) {
   const showUnionFields = items.some(({ input }) => input.merchant || input.terminal);
   const headers = ["设备号", "收钱吧门店号", "收钱吧激活码",
-    ...(showUnionFields ? ["通联商户号", "通联终端号"] : []), "失败阶段", "失败原因"];
+    ...(showUnionFields ? ["通联商户号", "通联终端号"] : []), ...(includeStage ? ["失败阶段"] : []), "失败原因"];
+  return bodyTable(headers, items.map(({ input, stage, reason }) => row(
+    plain(input.serial), plain(input.storeCode), plain(input.code),
+    ...(showUnionFields ? [plain(input.merchant), plain(input.terminal)] : []),
+    ...(includeStage ? [esc(stage)] : []), esc(reason)
+  )), "本批次没有导入失败的记录");
+}
+
+function renderImportFailures(batch) {
+  const items = batchFailures(batch);
   return `${items.length ? `<div class="panel-title align-right"><button class="button" type="button" data-action="download-import-failures" data-id="${esc(batch.id)}">下载失败清单</button></div>` : ""}
-    ${bodyTable(headers, items.map(({ input, stage, reason }) => row(
-      plain(input.serial), plain(input.storeCode), plain(input.code),
-      ...(showUnionFields ? [plain(input.merchant), plain(input.terminal)] : []), esc(stage), esc(reason)
-    )), "本批次没有导入失败的记录")}`;
+    ${importFailureTable(items, { includeStage: true })}`;
 }
 
 function renderResult(state, batch) {
